@@ -86,7 +86,16 @@ class TodoCard extends StatelessWidget {
             value: todo.isCompleted,
             onChanged: (_) => completeTodo(context),
           ),
-          Expanded(child: Text(todo.text)),
+          Expanded(
+            child: Text(
+              todo.text,
+              style: TextStyle(
+                decoration: todo.isCompleted
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none,
+              ),
+            ),
+          ),
           IconButton(
             onPressed: () => editTodo(context),
             icon: const Icon(Icons.edit_outlined),
