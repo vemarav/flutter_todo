@@ -1,78 +1,59 @@
 # Todos
 
-Implemented state management using [Bloc](https://pub.dev/packages/flutter_bloc) and [Get](https://pub.dev/packages/get) to compare ease of use and maintainance of flutter apps.
+This repo contains same UI and different state management techniques (without using StatefulWidget) to compare and prefer based on your coding style.
 
-[Get](https://pub.dev/packages/get) uses less code and avoids a lot of boiler plate code if compared to [Bloc](https://pub.dev/packages/flutter_bloc).
-
-
-<img src="https://user-images.githubusercontent.com/17309962/165533855-9e39b1ed-999e-41ae-ac60-70e65c6e9e84.png" width="400" />
-
-
-State management using [Bloc](https://pub.dev/packages/flutter_bloc)
---
-
-```dart
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todos/todo.dart';
-
-export 'package:todos/todo.dart';
-
-enum Type { add, remove, update }
-
-class TodoEvent {
-  final Type type;
-  final Todo todo;
-
-  const TodoEvent(this.type, this.todo);
-}
-
-class TodoBloc extends Bloc<TodoEvent, List<Todo>> {
-  TodoBloc() : super([]) {
-    on(addEvent);
-  }
-
-  void addEvent(TodoEvent event, emit) {
-    final List<Todo> todos = state; // state is []
-    final Todo todo = event.todo;
-
-    switch (event.type) {
-      case Type.add:
-        todos.add(todo);
-        emit(List<Todo>.from(todos));
-        break;
-      case Type.remove:
-        todos.remove(todo);
-        emit(List<Todo>.from(todos));
-        break;
-      case Type.update:
-        final index = todos.indexOf(todo);
-        todos[index] = todo;
-        emit(List<Todo>.from(todos));
-        break;
-    }
-  }
-}
-``` 
- 
 <br>
 
-State management using [Get](https://pub.dev/packages/get)
+> I respect the authors third-party packages used to build this repo. Special thanks to authors of [flutter_bloc](https://pub.dev/packages/flutter_bloc) and [GetX](https://pub.dev/packages/get) from where I learn a lot of flutter stuff
+
+<br>
+
+👩‍💻 Keep Rocking, While Coding 👨‍💻
+
+<br>
+
+Todos | Edit Todo
+---|---
+![Todos](https://user-images.githubusercontent.com/17309962/165767376-00c32cab-f0de-4785-9756-3c42ce45b74a.png) | ![todo_edit](https://user-images.githubusercontent.com/17309962/165767492-95fadba2-1f3d-45e3-9765-b5ac9a0ca5cd.png)
+
+Project Structure
+--
+```
+lib
+├── bloc
+│   ├── todos_bloc.dart
+│   └── todos_view.dart
+├── getx
+│   ├── todo_controller.dart
+│   └── todos_view.dart
+├── main.dart
+├── streams
+│   ├── todo_controller.dart
+│   ├── todo_stream.dart
+│   ├── todo_stream_flutter.dart
+│   └── todo_view.dart
+└── todo.dart
+```
+
+<br>
+
+Usage
 --
 
+Import one of `todo_view.dart` to `main.dart` and it will just work.
+
 ```dart
-import 'package:get/get.dart';
-import 'package:todos/todo.dart';
+// import 'package:todos/bloc/todos_view.dart';
+// import 'package:todos/getx/todos_view.dart';
+import 'package:todos/streams/todo_view.dart';
+import 'package:flutter/material.dart';
 
-export 'package:todos/todo.dart';
-
-class TodoController extends GetxController {
-  List<Todo> todos = List<Todo>.from([]).obs;
-
-  add(Todo todo) => todos.add(todo);
-  remove(Todo todo) => todos.remove(todo);
-  modity(Todo todo) {
-    int index = todos.indexOf(todo);
-    todos[index] = todo;
-  }
+void main() {
+  runApp(const App());
 }
+
 ```
+
+1. [State management using BLoC](https://github.com/vemarav/flutter_todo/tree/main/lib/bloc)
+2. [State management using Get](https://github.com/vemarav/flutter_todo/tree/main/lib/getx)
+2. [State management using dart:async#Stream](https://github.com/vemarav/flutter_todo/tree/main/lib/streams)
