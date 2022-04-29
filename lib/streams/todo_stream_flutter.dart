@@ -6,7 +6,7 @@ export 'todo_stream.dart';
 /* ------------- StateBuilder ----------- */
 class StateBuilder<T extends StateController, S> extends StatelessWidget {
   final T controller;
-  final Widget Function(BuildContext context, S controller) builder;
+  final Widget Function(BuildContext context, S state) builder;
 
   const StateBuilder({
     required this.controller,
